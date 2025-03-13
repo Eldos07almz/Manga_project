@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
-import 'manga_home_page.dart';
+import 'package:flutter_application_1/screens/manga_home_page.dart';
+import 'package:flutter_application_1/routes.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MangaApp());
 }
 
-class MyApp extends StatelessWidget {
+class MangaApp extends StatelessWidget {
+  const MangaApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       title: 'Manga Reader',
-      theme: ThemeData.dark(),
-      home: MangaHomePage(),
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: Colors.white,
+      ),
+      home: const MangaHomePage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }

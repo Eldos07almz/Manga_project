@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class MangaDetailPage extends StatelessWidget {
   final Map<String, String> manga;
 
-  MangaDetailPage({required this.manga});
+  MangaDetailPage({required this.manga, required String id});
 
   @override
   Widget build(BuildContext context) {
