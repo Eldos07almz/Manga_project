@@ -3,47 +3,43 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_application_1/screens/manga_home_page.dart';
 import 'package:flutter_application_1/screens/user_page.dart';
 
-void main() {
-  runApp(MyApp());
-}
+// Remove this main() function as it conflicts with the one in main.dart
+// void main() {
+//   runApp(MyApp());
+// }
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routerConfig: _router,
-      debugShowCheckedModeBanner: false,
-    );
-  }
+// This class can be used if you want to use GoRouter directly in main.dart
+class AppRouter {
+  static final GoRouter router = GoRouter(
+    initialLocation: '/home',
+    routes: [
+      ShellRoute(
+        builder: (context, state, child) {
+          return MainScreen(child: child);
+        },
+        routes: [
+          GoRoute(
+            path: '/home',
+            name: 'home',
+            builder: (context, state) => const MangaHomePage(),
+          ),
+          GoRoute(
+            path: '/user',
+            name: 'user',
+            builder: (context, state) => const UserPage(),
+          ),
+        ],
+      ),
+    ],
+  );
 }
-
-final GoRouter _router = GoRouter(
-  initialLocation: '/home',
-  routes: [
-    ShellRoute(
-      builder: (context, state, child) {
-        return MainScreen(child: child);
-      },
-      routes: [
-        GoRoute(
-          path: '/home',
-          builder: (context, state) => MangaHomePage(),
-        ),
-        GoRoute(
-          path: '/user',
-          builder: (context, state) => UserPage(),
-        ),
-      ],
-    ),
-  ],
-);
 
 class MainScreen extends StatefulWidget {
   final Widget child;
-  MainScreen({required this.child});
+  const MainScreen({super.key, required this.child});
 
   @override
-  _MainScreenState createState() => _MainScreenState();
+  State<MainScreen> createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
@@ -64,10 +60,18 @@ class _MainScreenState extends State<MainScreen> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'User'),
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.menu_book),
+            label: 'Manga',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
         ],
+        selectedItemColor: Colors.blue,
+        unselectedItemColor: Colors.grey,
       ),
     );
   }
